@@ -12,9 +12,12 @@ from pressure_cumulative_frequency_calculator import (
     PressureCumulativeFrequencyCalculator,
 )
 import argparse
+from normalized_frequency import NormalizedFrequency
 
 
-def reproduce_bspline_and_save(coordinates: Any, filename: Any) -> None:
+def reproduce_bspline_and_save(
+    coordinates: list[tuple[NormalizedPressure, NormalizedFrequency]], filename: str
+) -> None:
     x_values, y_values = zip(*coordinates)
 
     # FIXME: Why do we specify `k`?
