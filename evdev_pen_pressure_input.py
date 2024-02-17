@@ -46,3 +46,10 @@ class EvdevPenPressureInput(AbstractPenPressureInput):
 
                 # Display pen pressure
                 print(f"Pen Pressure: {event.value}")
+
+    # TODO: Get the actual min and max pressure values from the device
+    def max_pressure(self) -> int:
+        return 4095
+
+    def min_pressure(self) -> int:
+        return 0

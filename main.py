@@ -1,13 +1,11 @@
 from evdev import InputDevice, ecodes
-import asyncio
 import matplotlib.pyplot as plt
-import signal
 import numpy as np
 from scipy.interpolate import make_interp_spline
 from typing import Any
-from abc import ABC, abstractmethod
-from abstract_pen_pressure_input import AbstractPenPressureInput
+from abstract_normalized_pressure_input import AbstractNormalizedPressureInput
 from evdev_pen_pressure_input import EvdevPenPressureInput
+from normalized_pressure_input import NormalizedPressureInput
 from krita_settings_writer_to_file import KritaSettingsWriterToFile
 import argparse
 
@@ -35,11 +33,8 @@ def create_pressure_graph(pen_pressures: list[int]) -> None:
     assert pen_pressures is not None, "pen_pressures cannot be None"
 
     # Calculate the cumulative frequency for each pressure value
-    unique_pressures, frequencies = np.unique(pen_pressures, return_counts=True)
+    scaled_pressures, frequencies = np.unique(pen_pressures, return_counts=True)
     cumulative_frequencies = np.cumsum(frequencies)
-
-    # Scale both X and Y axes to the range [0, 1]
-    scaled_pressures = unique_pressures / max(unique_pressures)
     scaled_frequencies = cumulative_frequencies / max(cumulative_frequencies)
 
     # Create a cumulative line graph
@@ -59,7 +54,7 @@ def create_pressure_graph(pen_pressures: list[int]) -> None:
     write_bspline_to_file(scaled_pressures, scaled_frequencies, krita_settings_filename)
 
 
-def run(pressure_input: AbstractPenPressureInput) -> None:
+def run(pressure_input: AbstractNormalizedPressureInput) -> None:
     # Monitor pen pressure
     pen_pressures = pressure_input.monitor_pressure()
 
@@ -77,8 +72,9 @@ def main() -> None:
     input_path = getattr(args, "from")
 
     pressure_input = EvdevPenPressureInput(input_path)
+    normalized_pressure_input = NormalizedPressureInput(pressure_input)
 
-    run(pressure_input)
+    run(normalized_pressure_input)
 
 
 if __name__ == "__main__":
