@@ -19,13 +19,6 @@ from pressure_cumulative_frequency_calculator import (
 )
 
 
-def write_bspline_to_file(
-    filename: str, coordinates: list[tuple[NormalizedPressure, NormalizedFrequency]]
-) -> None:
-    krita_settings_writer = KritaSettingsWriterToFile()
-    krita_settings_writer.write_settings(filename, coordinates)
-
-
 def run(
     pressure_input: AbstractNormalizedPressureInput,
     freq_calculator: AbstractPressureCumulativeFrequencyCalculator,
