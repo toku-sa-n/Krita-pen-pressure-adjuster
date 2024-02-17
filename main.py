@@ -8,31 +8,10 @@ from abstract_normalized_pressure_input import AbstractNormalizedPressureInput
 from evdev_pen_pressure_input import EvdevPenPressureInput
 from normalized_pressure_input import NormalizedPressureInput
 from krita_settings_writer_to_file import KritaSettingsWriterToFile
-from abc import ABC, abstractmethod
+from pressure_cumulative_frequency_calculator import (
+    PressureCumulativeFrequencyCalculator,
+)
 import argparse
-
-
-class AbstractPressureCumulativeFrequencyCalculator(ABC):
-    @abstractmethod
-    def calculate_pressure_cumulative_frequency(
-        self, pen_pressures: NormalizedPressure
-    ) -> list[tuple[float, float]]:
-        pass
-
-
-class PressureCumulativeFrequencyCalculator(
-    AbstractPressureCumulativeFrequencyCalculator
-):
-    def calculate_pressure_cumulative_frequency(
-        self, pen_pressures: NormalizedPressure
-    ) -> list[tuple[float, float]]:
-        scaled_pressures, frequencies = np.unique(
-            pen_pressures.pressures, return_counts=True
-        )
-        cumulative_frequencies = np.cumsum(frequencies)
-        scaled_frequencies = cumulative_frequencies / max(cumulative_frequencies)
-
-        return list(zip(scaled_pressures, scaled_frequencies))
 
 
 def reproduce_bspline_and_save(coordinates: Any, filename: Any) -> None:
