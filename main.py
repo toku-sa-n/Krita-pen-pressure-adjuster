@@ -17,20 +17,47 @@ from abc import ABC, abstractmethod
 from bspline_generator import BSplineGenerator
 
 
+class AbstractGraphPlotter(ABC):
+    @abstractmethod
+    def plot_graph(
+        self,
+        coordinates: list[tuple[NormalizedPressure, NormalizedFrequency]],
+    ) -> None:
+        pass
+
+
+class GraphPlotter(AbstractGraphPlotter):
+    def __init__(self) -> None:
+        self.fig, self.ax = plt.subplots()
+
+    def plot_graph(
+        self,
+        coordinates: list[tuple[NormalizedPressure, NormalizedFrequency]],
+    ) -> None:
+        x_values, y_values = zip(*coordinates)
+
+        self.ax.plot(x_values, y_values, color="blue", label="Original Data")
+        self.ax.set_title("Scaled Cumulative Pressure Frequency")
+        self.ax.set_xlabel("Scaled Pen Pressure (0-1)")
+        self.ax.set_ylabel("Scaled Cumulative Frequency (0-1)")
+        self.ax.set_xlim(0, 1)
+        self.ax.set_ylim(0, 1)
+
+        bspline_f = BSplineGenerator().reproduce_bspline_and_save(coordinates)
+        x_bspline = np.linspace(min(x_values), max(x_values), 1000)
+        y_bspline = bspline_f(x_bspline)
+
+        self.ax.plot(x_bspline, y_bspline, color="red", label="B-Spline Curve")
+        self.ax.legend()
+
+        self.fig.savefig("graph.png")  # Save the graph as a PNG file
+        print(f"\nB-Spline Curve graph saved as graph.png")
+
+
 def reproduce_bspline_and_save(
     coordinates: list[tuple[NormalizedPressure, NormalizedFrequency]], filename: str
 ) -> None:
-    x_values, y_values = zip(*coordinates)
-
-    bspline_f = BSplineGenerator().reproduce_bspline_and_save(coordinates)
-    x_bspline = np.linspace(min(x_values), max(x_values), 1000)
-    y_bspline = bspline_f(x_bspline)
-
-    # Create and save the B-Spline curve graph
-    plt.plot(x_bspline, y_bspline, color="red", label="B-Spline Curve")
-    plt.legend()
-    plt.savefig(filename)  # Save the graph as a PNG file
-    print(f"\nB-Spline Curve graph saved as {filename}")
+    GraphPlotter().plot_graph(coordinates)
 
 
 def write_bspline_to_file(
