@@ -39,7 +39,7 @@ def write_bspline_to_file(
     krita_settings_writer.write_settings(filename, coordinates)
 
 
-def create_pressure_graph(pen_pressures: NormalizedPressure) -> None:
+def create_pressure_graph(pen_pressures: list[NormalizedPressure]) -> None:
     scaled_pressures_and_frequencies = (
         PressureCumulativeFrequencyCalculator().calculate_pressure_cumulative_frequency(
             pen_pressures

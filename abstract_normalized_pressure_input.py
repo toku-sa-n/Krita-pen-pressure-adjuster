@@ -6,9 +6,9 @@ class AbstractNormalizedPressureInput(ABC):
     """An abstract base class for normalized pressure input."""
 
     @abstractmethod
-    def monitor_pressure(self) -> NormalizedPressure | None:
+    def monitor_pressure(self) -> list[NormalizedPressure] | None:
         """
-        Monitor the pressure and return a list of float values or None.
+        Monitor the pressure and return a list of normalized pressure values.
 
         The list of float values should be normalized to the range [0, 1].
         """
