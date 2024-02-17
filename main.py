@@ -53,7 +53,9 @@ def create_pressure_graph(pen_pressures: list[float]) -> None:
 
     # Write B-Spline curve coordinates to a file in the desired format
     krita_settings_filename = "pen_pressure.txt"
-    write_bspline_to_file(scaled_pressures, scaled_frequencies, krita_settings_filename)
+    write_bspline_to_file(
+        scaled_pressures.tolist(), scaled_frequencies, krita_settings_filename
+    )
 
 
 def run(pressure_input: AbstractNormalizedPressureInput) -> None:
