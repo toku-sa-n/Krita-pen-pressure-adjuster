@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.interpolate import make_interp_spline
 from normalized_pressure import NormalizedPressure
-from typing import Any
+from typing import Any, Callable
 from abstract_normalized_pressure_input import AbstractNormalizedPressureInput
 from evdev_pen_pressure_input import EvdevPenPressureInput
 from normalized_pressure_input import NormalizedPressureInput
@@ -13,6 +13,25 @@ from pressure_cumulative_frequency_calculator import (
 )
 import argparse
 from normalized_frequency import NormalizedFrequency
+from abc import ABC, abstractmethod
+
+
+class AbstractBSplineCurveReproducer(ABC):
+    @abstractmethod
+    def reproduce_bspline_and_save(
+        self,
+        coordinates: list[tuple[NormalizedPressure, NormalizedFrequency]],
+    ) -> Callable[[float], float]:
+        pass
+
+
+class BSplineCurveReproducer(AbstractBSplineCurveReproducer):
+    def reproduce_bspline_and_save(
+        self,
+        coordinates: list[tuple[NormalizedPressure, NormalizedFrequency]],
+    ) -> Callable[[float], float]:
+        f: Callable[[float], float] = make_interp_spline(*zip(*coordinates))
+        return f
 
 
 def reproduce_bspline_and_save(
@@ -20,9 +39,9 @@ def reproduce_bspline_and_save(
 ) -> None:
     x_values, y_values = zip(*coordinates)
 
-    tck = make_interp_spline(x_values, y_values)
+    bspline_f = BSplineCurveReproducer().reproduce_bspline_and_save(coordinates)
     x_bspline = np.linspace(min(x_values), max(x_values), 1000)
-    y_bspline = tck(x_bspline)
+    y_bspline = bspline_f(x_bspline)
 
     # Create and save the B-Spline curve graph
     plt.plot(x_bspline, y_bspline, color="red", label="B-Spline Curve")
