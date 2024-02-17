@@ -14,24 +14,7 @@ from pressure_cumulative_frequency_calculator import (
 import argparse
 from normalized_frequency import NormalizedFrequency
 from abc import ABC, abstractmethod
-
-
-class AbstractBSplineCurveReproducer(ABC):
-    @abstractmethod
-    def reproduce_bspline_and_save(
-        self,
-        coordinates: list[tuple[NormalizedPressure, NormalizedFrequency]],
-    ) -> Callable[[float], float]:
-        pass
-
-
-class BSplineCurveReproducer(AbstractBSplineCurveReproducer):
-    def reproduce_bspline_and_save(
-        self,
-        coordinates: list[tuple[NormalizedPressure, NormalizedFrequency]],
-    ) -> Callable[[float], float]:
-        f: Callable[[float], float] = make_interp_spline(*zip(*coordinates))
-        return f
+from bspline_curve_reproducer import BSplineCurveReproducer
 
 
 def reproduce_bspline_and_save(
