@@ -1,9 +1,10 @@
-from abstract_graph_plotter import AbstractGraphPlotter
-from normalized_pressure import NormalizedPressure
-from normalized_frequency import NormalizedFrequency
-from bspline_generator import BSplineGenerator
 import matplotlib.pyplot as plt
 import numpy as np
+
+from abstract_graph_plotter import AbstractGraphPlotter
+from bspline_generator import BSplineGenerator
+from normalized_frequency import NormalizedFrequency
+from normalized_pressure import NormalizedPressure
 
 
 class GraphPlotter(AbstractGraphPlotter):

@@ -1,7 +1,9 @@
-from evdev import InputDevice, ecodes
 import asyncio
 import signal
 from typing import Any
+
+from evdev import InputDevice, ecodes
+
 from abstract_pen_pressure_input import AbstractRawPenPressureInput
 from raw_pen_pressure import RawPenPressure
 

@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
-from normalized_pressure import NormalizedPressure
+
 from normalized_frequency import NormalizedFrequency
+from normalized_pressure import NormalizedPressure
 
 
 class AbstractKritaSettingsWriter(ABC):
