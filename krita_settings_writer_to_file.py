@@ -1,9 +1,13 @@
 from abstract_krita_settings_writer import AbstractKritaSettingsWriter
+from normalized_pressure import NormalizedPressure
+from normalized_frequency import NormalizedFrequency
 
 
 class KritaSettingsWriterToFile(AbstractKritaSettingsWriter):
     def write_settings(
-        self, filename: str, coordinates: list[tuple[float, float]]
+        self,
+        filename: str,
+        coordinates: list[tuple[NormalizedPressure, NormalizedFrequency]],
     ) -> None:
         with open(filename, "w") as file:
             file.write("tabletPressureCurve=")

@@ -80,7 +80,7 @@ def reproduce_bspline_and_save(
 
 
 def write_bspline_to_file(
-    filename: str, coordinates: list[tuple[float, float]]
+    filename: str, coordinates: list[tuple[NormalizedPressure, NormalizedFrequency]]
 ) -> None:
     krita_settings_writer = KritaSettingsWriterToFile()
     krita_settings_writer.write_settings(filename, coordinates)
