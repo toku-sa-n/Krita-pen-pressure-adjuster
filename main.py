@@ -8,7 +8,31 @@ from abstract_normalized_pressure_input import AbstractNormalizedPressureInput
 from evdev_pen_pressure_input import EvdevPenPressureInput
 from normalized_pressure_input import NormalizedPressureInput
 from krita_settings_writer_to_file import KritaSettingsWriterToFile
+from abc import ABC, abstractmethod
 import argparse
+
+
+class AbstractPressureCumulativeFrequencyCalculator(ABC):
+    @abstractmethod
+    def calculate_pressure_cumulative_frequency(
+        self, pen_pressures: NormalizedPressure
+    ) -> list[tuple[float, float]]:
+        pass
+
+
+class PressureCumulativeFrequencyCalculator(
+    AbstractPressureCumulativeFrequencyCalculator
+):
+    def calculate_pressure_cumulative_frequency(
+        self, pen_pressures: NormalizedPressure
+    ) -> list[tuple[float, float]]:
+        scaled_pressures, frequencies = np.unique(
+            pen_pressures.pressures, return_counts=True
+        )
+        cumulative_frequencies = np.cumsum(frequencies)
+        scaled_frequencies = cumulative_frequencies / max(cumulative_frequencies)
+
+        return list(zip(scaled_pressures, scaled_frequencies))
 
 
 def reproduce_bspline_and_save(coordinates: Any, filename: Any) -> None:
@@ -37,12 +61,13 @@ def write_bspline_to_file(
 
 
 def create_pressure_graph(pen_pressures: NormalizedPressure) -> None:
-    # Calculate the cumulative frequency for each pressure value
-    scaled_pressures, frequencies = np.unique(
-        pen_pressures.pressures, return_counts=True
+    scaled_pressures_and_frequencies = (
+        PressureCumulativeFrequencyCalculator().calculate_pressure_cumulative_frequency(
+            pen_pressures
+        )
     )
-    cumulative_frequencies = np.cumsum(frequencies)
-    scaled_frequencies = cumulative_frequencies / max(cumulative_frequencies)
+
+    scaled_pressures, scaled_frequencies = zip(*scaled_pressures_and_frequencies)
 
     # Create a cumulative line graph
     plt.plot(scaled_pressures, scaled_frequencies, color="blue", label="Original Data")
