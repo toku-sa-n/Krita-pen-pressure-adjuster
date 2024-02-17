@@ -1,4 +1,5 @@
 import argparse
+import sys
 
 from scipy.interpolate import make_interp_spline
 
@@ -40,12 +41,9 @@ def run(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--from", help="Input path")
-
-    args = parser.parse_args()
-
-    input_path = getattr(args, "from")
+    input_path = (
+        sys.argv[1] if len(sys.argv) > 1 else sys.exit("No input path provided.")
+    )
 
     pressure_input = EvdevPenPressureInput(input_path)
     normalized_pressure_input = NormalizedPressureInput(pressure_input)
