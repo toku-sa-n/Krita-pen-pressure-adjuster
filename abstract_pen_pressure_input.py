@@ -4,5 +4,5 @@ from raw_pen_pressure import RawPenPressure
 
 class AbstractRawPenPressureInput(ABC):
     @abstractmethod
-    def monitor_pressure(self) -> RawPenPressure | None:
+    def monitor_pressure(self) -> list[RawPenPressure] | None:
         pass

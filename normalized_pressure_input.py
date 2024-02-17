@@ -14,10 +14,9 @@ class NormalizedPressureInput(AbstractNormalizedPressureInput):
             # Normalize the pen pressures to the range [0, 1]
             normalized_pressures = [
                 NormalizedPressure(
-                    (pressure - pen_pressures.min_pressure)
-                    / (pen_pressures.max_pressure - pen_pressures.min_pressure)
+                    (x.pressure - x.min_pressure) / (x.max_pressure - x.min_pressure)
                 )
-                for pressure in pen_pressures.pressures
+                for x in pen_pressures
             ]
             return normalized_pressures
         else:

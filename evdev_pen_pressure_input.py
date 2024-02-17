@@ -12,7 +12,7 @@ class EvdevPenPressureInput(AbstractRawPenPressureInput):
         self.device = InputDevice(device_path)
         self.pen_pressures: list[int] = []
 
-    def monitor_pressure(self) -> RawPenPressure | None:
+    def monitor_pressure(self) -> list[RawPenPressure] | None:
         try:
             print(
                 f"Monitoring pen pressure on {self.device.name} (event device: {self.device_path})"
@@ -34,10 +34,13 @@ class EvdevPenPressureInput(AbstractRawPenPressureInput):
                 pass  # Ignore KeyboardInterrupt here, as it is used to stop the loop
 
             # TODO: Get the actual min and max pressure values from the device.
-            return RawPenPressure(
-                min_pressure=0,
-                max_pressure=4095,
-                pressures=self.pen_pressures,
+            return list(
+                map(
+                    lambda x: RawPenPressure(
+                        min_pressure=0, max_pressure=4095, pressure=x
+                    ),
+                    self.pen_pressures,
+                )
             )
 
         except FileNotFoundError:
