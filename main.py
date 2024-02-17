@@ -26,10 +26,8 @@ def run(
     graph_plotter: AbstractGraphPlotter,
     config_writer: AbstractKritaSettingsWriter,
 ) -> None:
-    # Monitor pen pressure
     pen_pressures = pressure_input.monitor_pressure()
 
-    # Create and display the pressure graph
     if pen_pressures:
         pressure_freq = freq_calculator.calculate_pressure_cumulative_frequency(
             pen_pressures
