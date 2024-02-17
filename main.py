@@ -6,16 +6,7 @@ import numpy as np
 from scipy.interpolate import make_interp_spline
 from typing import Any
 from abc import ABC, abstractmethod
-
-
-class AbstractPenPressureInput(ABC):
-    @abstractmethod
-    async def monitor_event(self) -> None:
-        pass
-
-    @abstractmethod
-    def monitor_pressure(self) -> list[int] | None:
-        pass
+from abstract_pen_pressure_input import AbstractPenPressureInput
 
 
 class PenPressureInput(AbstractPenPressureInput):
