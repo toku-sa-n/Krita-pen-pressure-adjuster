@@ -24,7 +24,9 @@ def reproduce_bspline_and_save(x_values: Any, y_values: Any, filename: Any) -> N
     print(f"\nB-Spline Curve graph saved as {filename}")
 
 
-def write_bspline_to_file(x_values: Any, y_values: Any, filename: Any) -> None:
+def write_bspline_to_file(
+    x_values: list[float], y_values: list[float], filename: str
+) -> None:
     krita_settings_writer = KritaSettingsWriterToFile()
     krita_settings_writer.write_settings(filename, x_values, y_values)
 
