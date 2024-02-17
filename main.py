@@ -30,7 +30,7 @@ def write_bspline_to_file(x_values: Any, y_values: Any, filename: Any) -> None:
     krita_settings_writer.write_settings(filename, x_values, y_values)
 
 
-def create_pressure_graph(pen_pressures: Any) -> None:
+def create_pressure_graph(pen_pressures: list[int]) -> None:
     assert pen_pressures is not None, "pen_pressures cannot be None"
 
     # Calculate the cumulative frequency for each pressure value
