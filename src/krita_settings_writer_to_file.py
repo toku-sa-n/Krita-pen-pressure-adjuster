@@ -14,4 +14,6 @@ class KritaSettingsWriterToFile(AbstractKritaSettingsWriter):
             for x, y in coordinates:
                 file.write(f"{x:.6f},{y:.6f};")
 
+            file.write("\n")
+
         print(f"\nB-Spline Curve coordinates saved to {filename}")
