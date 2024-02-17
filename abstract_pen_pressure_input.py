@@ -1,15 +1,8 @@
 from abc import ABC, abstractmethod
+from raw_pen_pressure import RawPenPressure
 
 
-class AbstractPenPressureInput(ABC):
+class AbstractRawPenPressureInput(ABC):
     @abstractmethod
-    def monitor_pressure(self) -> list[int] | None:
-        pass
-
-    @abstractmethod
-    def max_pressure(self) -> int:
-        pass
-
-    @abstractmethod
-    def min_pressure(self) -> int:
+    def monitor_pressure(self) -> RawPenPressure | None:
         pass
