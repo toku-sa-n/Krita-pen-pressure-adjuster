@@ -20,7 +20,6 @@ def reproduce_bspline_and_save(
 ) -> None:
     x_values, y_values = zip(*coordinates)
 
-    # FIXME: Why do we specify `k`?
     tck = make_interp_spline(x_values, y_values)
     x_bspline = np.linspace(min(x_values), max(x_values), 1000)
     y_bspline = tck(x_bspline)
