@@ -1,0 +1,98 @@
+from evdev import InputDevice, ecodes
+import asyncio
+import matplotlib.pyplot as plt
+import signal
+import numpy as np
+from scipy.interpolate import make_interp_spline
+
+async def monitor_event(device, pen_pressures, stop_event):
+    async for event in device.async_read_loop():
+        if event.type == ecodes.EV_ABS and event.code == ecodes.ABS_PRESSURE:
+            # Store pen pressure
+            pen_pressures.append(event.value)
+
+            # Display pen pressure
+            print(f'Pen Pressure: {event.value}')
+
+def monitor_pen_pressure(device_path='/dev/input/event13'):
+    try:
+        device = InputDevice(device_path)
+        print(f"Monitoring pen pressure on {device.name} (event device: {device_path})")
+
+        # Initialize lists to store pen pressures
+        pen_pressures = []
+
+        # Ensure the program can be interrupted with Ctrl+C
+        loop = asyncio.get_event_loop()
+        stop_event = asyncio.Event()
+        for signame in ('SIGINT', 'SIGTERM'):
+            loop.add_signal_handler(getattr(signal, signame), stop_event.set)
+
+        # Start monitoring events
+        asyncio.ensure_future(monitor_event(device, pen_pressures, stop_event))
+        plt.ion()  # Turn on interactive mode for continuous plotting
+        plt.show()
+
+        try:
+            # Run the event loop until the stop event is set
+            loop.run_until_complete(stop_event.wait())
+        except KeyboardInterrupt:
+            pass  # Ignore KeyboardInterrupt here, as it is used to stop the loop
+
+        # Calculate the cumulative frequency for each pressure value
+        unique_pressures, frequencies = np.unique(pen_pressures, return_counts=True)
+        cumulative_frequencies = np.cumsum(frequencies)
+
+        # Scale both X and Y axes to the range [0, 1]
+        scaled_pressures = unique_pressures / max(unique_pressures)
+        scaled_frequencies = cumulative_frequencies / max(cumulative_frequencies)
+
+        # Create a cumulative line graph
+        plt.plot(scaled_pressures, scaled_frequencies, color='blue', label='Original Data')
+        plt.title('Scaled Cumulative Pressure Frequency')
+        plt.xlabel('Scaled Pen Pressure (0-1)')
+        plt.ylabel('Scaled Cumulative Frequency (0-1)')
+        plt.xlim(0, 1)
+        plt.ylim(0, 1)
+
+        # Reproduce the cumulative line graph using a B-Spline curve
+        filename = 'graph.png'
+        reproduce_bspline_and_save(scaled_pressures, scaled_frequencies, filename)
+
+        # Write B-Spline curve coordinates to a file in the desired format
+        krita_settings_filename = 'pen_pressure.txt'
+        write_bspline_to_file(scaled_pressures, scaled_frequencies, krita_settings_filename)
+
+    except FileNotFoundError:
+        print(f"Error: Device not found at {device_path}")
+
+def reproduce_bspline_and_save(x_values, y_values, filename):
+    # Generate a B-Spline curve with a variable number of control points
+    num_points = min(5, len(x_values) - 1)
+    tck = make_interp_spline(x_values, y_values, k=num_points)
+    x_bspline = np.linspace(min(x_values), max(x_values), 1000)
+    y_bspline = tck(x_bspline)
+
+    # Create and save the B-Spline curve graph
+    plt.plot(x_bspline, y_bspline, color='red', label='B-Spline Curve')
+    plt.legend()
+    plt.savefig(filename)  # Save the graph as a PNG file
+    print(f"\nB-Spline Curve graph saved as {filename}")
+
+def write_bspline_to_file(x_values, y_values, filename):
+    # Write B-Spline curve coordinates to a file in the desired format
+    with open(filename, 'w') as file:
+        file.write("tabletPressureCurve=")
+        for x, y in zip(x_values, y_values):
+            file.write(f"{x:.6f},{y:.6f};")
+
+    print(f"\nB-Spline Curve coordinates saved to {filename}")
+
+def main():
+    # Specify the correct event device path for your pen input device
+    # You can find the path using 'ls /dev/input/' or 'evtest'
+    device_path = '/dev/input/event13'  # Replace 'event13' with the correct event device
+    monitor_pen_pressure(device_path)
+
+if __name__ == "__main__":
+    main()
