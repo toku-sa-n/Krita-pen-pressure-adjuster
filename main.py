@@ -93,23 +93,13 @@ def create_pressure_graph(pen_pressures: list[NormalizedPressure]) -> None:
         )
     )
 
-    scaled_pressures, scaled_frequencies = zip(*scaled_pressures_and_frequencies)
+    GraphPlotter().plot_graph(scaled_pressures_and_frequencies)
 
-    # Create a cumulative line graph
-    plt.plot(scaled_pressures, scaled_frequencies, color="blue", label="Original Data")
-    plt.title("Scaled Cumulative Pressure Frequency")
-    plt.xlabel("Scaled Pen Pressure (0-1)")
-    plt.ylabel("Scaled Cumulative Frequency (0-1)")
-    plt.xlim(0, 1)
-    plt.ylim(0, 1)
-
-    # Reproduce the cumulative line graph using a B-Spline curve
-    filename = "graph.png"
-    reproduce_bspline_and_save(scaled_pressures_and_frequencies, filename)
-
-    # Write B-Spline curve coordinates to a file in the desired format
     krita_settings_filename = "pen_pressure.txt"
-    write_bspline_to_file(krita_settings_filename, scaled_pressures_and_frequencies)
+    krita_settings_writer = KritaSettingsWriterToFile()
+    krita_settings_writer.write_settings(
+        krita_settings_filename, scaled_pressures_and_frequencies
+    )
 
 
 def run(pressure_input: AbstractNormalizedPressureInput) -> None:
