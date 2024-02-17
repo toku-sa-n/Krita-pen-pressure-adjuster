@@ -4,17 +4,20 @@ import matplotlib.pyplot as plt
 import signal
 import numpy as np
 from scipy.interpolate import make_interp_spline
+from typing import Any
 
-async def monitor_event(device, pen_pressures, stop_event):
+
+async def monitor_event(device: Any, pen_pressures: list[int], stop_event: Any) -> None:
     async for event in device.async_read_loop():
         if event.type == ecodes.EV_ABS and event.code == ecodes.ABS_PRESSURE:
             # Store pen pressure
             pen_pressures.append(event.value)
 
             # Display pen pressure
-            print(f'Pen Pressure: {event.value}')
+            print(f"Pen Pressure: {event.value}")
 
-def reproduce_bspline_and_save(x_values, y_values, filename):
+
+def reproduce_bspline_and_save(x_values: Any, y_values: Any, filename: Any) -> None:
     # Generate a B-Spline curve with a variable number of control points
     num_points = min(5, len(x_values) - 1)
     tck = make_interp_spline(x_values, y_values, k=num_points)
@@ -22,32 +25,34 @@ def reproduce_bspline_and_save(x_values, y_values, filename):
     y_bspline = tck(x_bspline)
 
     # Create and save the B-Spline curve graph
-    plt.plot(x_bspline, y_bspline, color='red', label='B-Spline Curve')
+    plt.plot(x_bspline, y_bspline, color="red", label="B-Spline Curve")
     plt.legend()
     plt.savefig(filename)  # Save the graph as a PNG file
     print(f"\nB-Spline Curve graph saved as {filename}")
 
-def write_bspline_to_file(x_values, y_values, filename):
+
+def write_bspline_to_file(x_values: Any, y_values: Any, filename: Any) -> None:
     # Write B-Spline curve coordinates to a file in the desired format
-    with open(filename, 'w') as file:
+    with open(filename, "w") as file:
         file.write("tabletPressureCurve=")
         for x, y in zip(x_values, y_values):
             file.write(f"{x:.6f},{y:.6f};")
 
     print(f"\nB-Spline Curve coordinates saved to {filename}")
 
-def monitor_pressure(device_path='/dev/input/event13'):
+
+def monitor_pressure(device_path: str = "/dev/input/event13") -> list[int] | None:
     try:
         device = InputDevice(device_path)
         print(f"Monitoring pen pressure on {device.name} (event device: {device_path})")
 
         # Initialize lists to store pen pressures
-        pen_pressures = []
+        pen_pressures: list[int] = []
 
         # Ensure the program can be interrupted with Ctrl+C
         loop = asyncio.get_event_loop()
         stop_event = asyncio.Event()
-        for signame in ('SIGINT', 'SIGTERM'):
+        for signame in ("SIGINT", "SIGTERM"):
             loop.add_signal_handler(getattr(signal, signame), stop_event.set)
 
         # Start monitoring events
@@ -65,7 +70,8 @@ def monitor_pressure(device_path='/dev/input/event13'):
         print(f"Error: Device not found at {device_path}")
         return None
 
-def create_pressure_graph(pen_pressures):
+
+def create_pressure_graph(pen_pressures: Any) -> None:
     if pen_pressures is not None:
         # Calculate the cumulative frequency for each pressure value
         unique_pressures, frequencies = np.unique(pen_pressures, return_counts=True)
@@ -76,25 +82,32 @@ def create_pressure_graph(pen_pressures):
         scaled_frequencies = cumulative_frequencies / max(cumulative_frequencies)
 
         # Create a cumulative line graph
-        plt.plot(scaled_pressures, scaled_frequencies, color='blue', label='Original Data')
-        plt.title('Scaled Cumulative Pressure Frequency')
-        plt.xlabel('Scaled Pen Pressure (0-1)')
-        plt.ylabel('Scaled Cumulative Frequency (0-1)')
+        plt.plot(
+            scaled_pressures, scaled_frequencies, color="blue", label="Original Data"
+        )
+        plt.title("Scaled Cumulative Pressure Frequency")
+        plt.xlabel("Scaled Pen Pressure (0-1)")
+        plt.ylabel("Scaled Cumulative Frequency (0-1)")
         plt.xlim(0, 1)
         plt.ylim(0, 1)
 
         # Reproduce the cumulative line graph using a B-Spline curve
-        filename = 'graph.png'
+        filename = "graph.png"
         reproduce_bspline_and_save(scaled_pressures, scaled_frequencies, filename)
 
         # Write B-Spline curve coordinates to a file in the desired format
-        krita_settings_filename = 'pen_pressure.txt'
-        write_bspline_to_file(scaled_pressures, scaled_frequencies, krita_settings_filename)
+        krita_settings_filename = "pen_pressure.txt"
+        write_bspline_to_file(
+            scaled_pressures, scaled_frequencies, krita_settings_filename
+        )
 
-def main():
+
+def main() -> None:
     # Specify the correct event device path for your pen input device
     # You can find the path using 'ls /dev/input/' or 'evtest'
-    device_path = '/dev/input/event13'  # Replace 'event13' with the correct event device
+    device_path = (
+        "/dev/input/event13"  # Replace 'event13' with the correct event device
+    )
 
     # Monitor pen pressure
     pen_pressures = monitor_pressure(device_path)
@@ -102,6 +115,7 @@ def main():
     # Create and display the pressure graph
     if pen_pressures:
         create_pressure_graph(pen_pressures)
+
 
 if __name__ == "__main__":
     main()
