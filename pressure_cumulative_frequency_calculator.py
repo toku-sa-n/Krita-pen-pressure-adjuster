@@ -1,7 +1,8 @@
 import numpy as np
 
-from abstract_pressure_cumulative_frequency_calculator import \
-    AbstractPressureCumulativeFrequencyCalculator
+from abstract_pressure_cumulative_frequency_calculator import (
+    AbstractPressureCumulativeFrequencyCalculator,
+)
 from normalized_frequency import NormalizedFrequency
 from normalized_pressure import NormalizedPressure
 
