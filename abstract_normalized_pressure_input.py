@@ -1,11 +1,12 @@
 from abc import ABC, abstractmethod
+from normalized_pressure import NormalizedPressure
 
 
 class AbstractNormalizedPressureInput(ABC):
     """An abstract base class for normalized pressure input."""
 
     @abstractmethod
-    def monitor_pressure(self) -> list[float] | None:
+    def monitor_pressure(self) -> NormalizedPressure | None:
         """
         Monitor the pressure and return a list of float values or None.
 

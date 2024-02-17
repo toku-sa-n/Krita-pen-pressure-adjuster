@@ -2,6 +2,7 @@ from evdev import InputDevice, ecodes
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.interpolate import make_interp_spline
+from normalized_pressure import NormalizedPressure
 from typing import Any
 from abstract_normalized_pressure_input import AbstractNormalizedPressureInput
 from evdev_pen_pressure_input import EvdevPenPressureInput
@@ -35,11 +36,11 @@ def write_bspline_to_file(
     krita_settings_writer.write_settings(filename, coordinates)
 
 
-def create_pressure_graph(pen_pressures: list[float]) -> None:
-    assert pen_pressures is not None, "pen_pressures cannot be None"
-
+def create_pressure_graph(pen_pressures: NormalizedPressure) -> None:
     # Calculate the cumulative frequency for each pressure value
-    scaled_pressures, frequencies = np.unique(pen_pressures, return_counts=True)
+    scaled_pressures, frequencies = np.unique(
+        pen_pressures.pressures, return_counts=True
+    )
     cumulative_frequencies = np.cumsum(frequencies)
     scaled_frequencies = cumulative_frequencies / max(cumulative_frequencies)
 
