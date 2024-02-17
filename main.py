@@ -17,11 +17,8 @@ import argparse
 def reproduce_bspline_and_save(coordinates: Any, filename: Any) -> None:
     x_values, y_values = zip(*coordinates)
 
-    # Generate a B-Spline curve with a variable number of control points
-    num_points = min(5, len(x_values) - 1)
-
     # FIXME: Why do we specify `k`?
-    tck = make_interp_spline(x_values, y_values, k=num_points)
+    tck = make_interp_spline(x_values, y_values)
     x_bspline = np.linspace(min(x_values), max(x_values), 1000)
     y_bspline = tck(x_bspline)
 
