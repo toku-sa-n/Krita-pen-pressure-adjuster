@@ -31,34 +31,31 @@ def write_bspline_to_file(x_values: Any, y_values: Any, filename: Any) -> None:
 
 
 def create_pressure_graph(pen_pressures: Any) -> None:
-    if pen_pressures is not None:
-        # Calculate the cumulative frequency for each pressure value
-        unique_pressures, frequencies = np.unique(pen_pressures, return_counts=True)
-        cumulative_frequencies = np.cumsum(frequencies)
+    assert pen_pressures is not None, "pen_pressures cannot be None"
 
-        # Scale both X and Y axes to the range [0, 1]
-        scaled_pressures = unique_pressures / max(unique_pressures)
-        scaled_frequencies = cumulative_frequencies / max(cumulative_frequencies)
+    # Calculate the cumulative frequency for each pressure value
+    unique_pressures, frequencies = np.unique(pen_pressures, return_counts=True)
+    cumulative_frequencies = np.cumsum(frequencies)
 
-        # Create a cumulative line graph
-        plt.plot(
-            scaled_pressures, scaled_frequencies, color="blue", label="Original Data"
-        )
-        plt.title("Scaled Cumulative Pressure Frequency")
-        plt.xlabel("Scaled Pen Pressure (0-1)")
-        plt.ylabel("Scaled Cumulative Frequency (0-1)")
-        plt.xlim(0, 1)
-        plt.ylim(0, 1)
+    # Scale both X and Y axes to the range [0, 1]
+    scaled_pressures = unique_pressures / max(unique_pressures)
+    scaled_frequencies = cumulative_frequencies / max(cumulative_frequencies)
 
-        # Reproduce the cumulative line graph using a B-Spline curve
-        filename = "graph.png"
-        reproduce_bspline_and_save(scaled_pressures, scaled_frequencies, filename)
+    # Create a cumulative line graph
+    plt.plot(scaled_pressures, scaled_frequencies, color="blue", label="Original Data")
+    plt.title("Scaled Cumulative Pressure Frequency")
+    plt.xlabel("Scaled Pen Pressure (0-1)")
+    plt.ylabel("Scaled Cumulative Frequency (0-1)")
+    plt.xlim(0, 1)
+    plt.ylim(0, 1)
 
-        # Write B-Spline curve coordinates to a file in the desired format
-        krita_settings_filename = "pen_pressure.txt"
-        write_bspline_to_file(
-            scaled_pressures, scaled_frequencies, krita_settings_filename
-        )
+    # Reproduce the cumulative line graph using a B-Spline curve
+    filename = "graph.png"
+    reproduce_bspline_and_save(scaled_pressures, scaled_frequencies, filename)
+
+    # Write B-Spline curve coordinates to a file in the desired format
+    krita_settings_filename = "pen_pressure.txt"
+    write_bspline_to_file(scaled_pressures, scaled_frequencies, krita_settings_filename)
 
 
 def run(pressure_input: AbstractPenPressureInput) -> None:
