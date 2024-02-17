@@ -103,15 +103,13 @@ def create_pressure_graph(pen_pressures: list[NormalizedPressure]) -> None:
     plt.xlim(0, 1)
     plt.ylim(0, 1)
 
-    coordinates = list(zip(scaled_pressures, scaled_frequencies))
-
     # Reproduce the cumulative line graph using a B-Spline curve
     filename = "graph.png"
-    reproduce_bspline_and_save(coordinates, filename)
+    reproduce_bspline_and_save(scaled_pressures_and_frequencies, filename)
 
     # Write B-Spline curve coordinates to a file in the desired format
     krita_settings_filename = "pen_pressure.txt"
-    write_bspline_to_file(krita_settings_filename, coordinates)
+    write_bspline_to_file(krita_settings_filename, scaled_pressures_and_frequencies)
 
 
 def run(pressure_input: AbstractNormalizedPressureInput) -> None:
