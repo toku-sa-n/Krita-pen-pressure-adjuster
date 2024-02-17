@@ -4,7 +4,7 @@ from normalized_pressure import NormalizedPressure
 from normalized_frequency import NormalizedFrequency
 
 
-class AbstractBSplineCurveReproducer(ABC):
+class AbstractBSplineGenerator(ABC):
     @abstractmethod
     def reproduce_bspline_and_save(
         self,

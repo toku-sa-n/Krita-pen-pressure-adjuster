@@ -14,7 +14,7 @@ from pressure_cumulative_frequency_calculator import (
 import argparse
 from normalized_frequency import NormalizedFrequency
 from abc import ABC, abstractmethod
-from bspline_curve_reproducer import BSplineCurveReproducer
+from bspline_generator import BSplineGenerator
 
 
 def reproduce_bspline_and_save(
@@ -22,7 +22,7 @@ def reproduce_bspline_and_save(
 ) -> None:
     x_values, y_values = zip(*coordinates)
 
-    bspline_f = BSplineCurveReproducer().reproduce_bspline_and_save(coordinates)
+    bspline_f = BSplineGenerator().reproduce_bspline_and_save(coordinates)
     x_bspline = np.linspace(min(x_values), max(x_values), 1000)
     y_bspline = bspline_f(x_bspline)
 
