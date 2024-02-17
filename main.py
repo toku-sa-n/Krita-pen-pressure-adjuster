@@ -9,6 +9,7 @@ from abc import ABC, abstractmethod
 from abstract_pen_pressure_input import AbstractPenPressureInput
 from evdev_pen_pressure_input import EvdevPenPressureInput
 from krita_settings_writer_to_file import KritaSettingsWriterToFile
+import argparse
 
 
 def reproduce_bspline_and_save(x_values: Any, y_values: Any, filename: Any) -> None:
@@ -68,7 +69,14 @@ def run(pressure_input: AbstractPenPressureInput) -> None:
 
 
 def main() -> None:
-    pressure_input = EvdevPenPressureInput("/dev/input/event13")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--from", help="Input path")
+
+    args = parser.parse_args()
+
+    input_path = getattr(args, "from")
+
+    pressure_input = EvdevPenPressureInput(input_path)
 
     run(pressure_input)
 
