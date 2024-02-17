@@ -11,7 +11,7 @@ class PressureCumulativeFrequencyCalculator(
     def calculate_pressure_cumulative_frequency(
         self, pen_pressures: list[NormalizedPressure]
     ) -> list[tuple[float, float]]:
-        pressures = list(map(lambda x: x.pressure, pen_pressures))
+        pressures = list(map(lambda x: x.value, pen_pressures))
 
         scaled_pressures, frequencies = np.unique(pressures, return_counts=True)
         cumulative_frequencies = np.cumsum(frequencies)

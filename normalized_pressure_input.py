@@ -1,6 +1,7 @@
 from abstract_normalized_pressure_input import AbstractNormalizedPressureInput
 from abstract_pen_pressure_input import AbstractRawPenPressureInput
 from normalized_pressure import NormalizedPressure
+from normalized import Normalized
 
 
 class NormalizedPressureInput(AbstractNormalizedPressureInput):
@@ -14,7 +15,10 @@ class NormalizedPressureInput(AbstractNormalizedPressureInput):
             # Normalize the pen pressures to the range [0, 1]
             normalized_pressures = [
                 NormalizedPressure(
-                    (x.pressure - x.min_pressure) / (x.max_pressure - x.min_pressure)
+                    Normalized(
+                        (x.pressure - x.min_pressure)
+                        / (x.max_pressure - x.min_pressure)
+                    )
                 )
                 for x in pen_pressures
             ]
