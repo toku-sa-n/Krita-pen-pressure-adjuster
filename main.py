@@ -116,6 +116,15 @@ def create_pressure_graph(pen_pressures: Any) -> None:
         )
 
 
+def run(pressure_input: AbstractPenPressureInput) -> None:
+    # Monitor pen pressure
+    pen_pressures = pressure_input.monitor_pressure()
+
+    # Create and display the pressure graph
+    if pen_pressures:
+        create_pressure_graph(pen_pressures)
+
+
 def main() -> None:
     # Specify the correct event device path for your pen input device
     # You can find the path using 'ls /dev/input/' or 'evtest'
@@ -123,12 +132,9 @@ def main() -> None:
         "/dev/input/event13"  # Replace 'event13' with the correct event device
     )
 
-    # Monitor pen pressure
-    pen_pressures = PenPressureInput(device_path).monitor_pressure()
+    pressure_input = PenPressureInput(device_path)
 
-    # Create and display the pressure graph
-    if pen_pressures:
-        create_pressure_graph(pen_pressures)
+    run(pressure_input)
 
 
 if __name__ == "__main__":
