@@ -126,13 +126,7 @@ def run(pressure_input: AbstractPenPressureInput) -> None:
 
 
 def main() -> None:
-    # Specify the correct event device path for your pen input device
-    # You can find the path using 'ls /dev/input/' or 'evtest'
-    device_path = (
-        "/dev/input/event13"  # Replace 'event13' with the correct event device
-    )
-
-    pressure_input = PenPressureInput(device_path)
+    pressure_input = PenPressureInput("/dev/input/event13")
 
     run(pressure_input)
 
