@@ -10,7 +10,9 @@ from krita_settings_writer_to_file import KritaSettingsWriterToFile
 import argparse
 
 
-def reproduce_bspline_and_save(x_values: Any, y_values: Any, filename: Any) -> None:
+def reproduce_bspline_and_save(coordinates: Any, filename: Any) -> None:
+    x_values, y_values = zip(*coordinates)
+
     # Generate a B-Spline curve with a variable number of control points
     num_points = min(5, len(x_values) - 1)
     tck = make_interp_spline(x_values, y_values, k=num_points)
@@ -47,15 +49,15 @@ def create_pressure_graph(pen_pressures: list[float]) -> None:
     plt.xlim(0, 1)
     plt.ylim(0, 1)
 
+    coordinates = list(zip(scaled_pressures, scaled_frequencies))
+
     # Reproduce the cumulative line graph using a B-Spline curve
     filename = "graph.png"
-    reproduce_bspline_and_save(scaled_pressures, scaled_frequencies, filename)
+    reproduce_bspline_and_save(coordinates, filename)
 
     # Write B-Spline curve coordinates to a file in the desired format
     krita_settings_filename = "pen_pressure.txt"
-    write_bspline_to_file(
-        krita_settings_filename, list(zip(scaled_pressures, scaled_frequencies))
-    )
+    write_bspline_to_file(krita_settings_filename, coordinates)
 
 
 def run(pressure_input: AbstractNormalizedPressureInput) -> None:
