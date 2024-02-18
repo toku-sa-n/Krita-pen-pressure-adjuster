@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from normalized_pressure import NormalizedPressure
+from datatypes.normalized.normalized_pressure import NormalizedPressure
 
 
 class AbstractNormalizedPressureInput(ABC):

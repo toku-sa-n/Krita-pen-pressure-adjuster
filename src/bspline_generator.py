@@ -3,8 +3,8 @@ from typing import Callable
 from scipy.interpolate import make_interp_spline
 
 from abstract_bspline_generator import AbstractBSplineGenerator
-from normalized_frequency import NormalizedFrequency
-from normalized_pressure import NormalizedPressure
+from datatypes.normalized.normalized_frequency import NormalizedFrequency
+from datatypes.normalized.normalized_pressure import NormalizedPressure
 
 
 class BSplineGenerator(AbstractBSplineGenerator):
