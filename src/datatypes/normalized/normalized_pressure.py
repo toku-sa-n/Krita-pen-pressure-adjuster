@@ -1,5 +1,5 @@
 from typing import NewType
 
-from .normalized import Normalized
+from .base import Normalized
 
 NormalizedPressure = NewType("NormalizedPressure", Normalized)
