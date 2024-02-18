@@ -1,6 +1,6 @@
 import numpy as np
 
-from abstract_pressure_cumulative_frequency_calculator import (
+from .abstract import (
     AbstractPressureCumulativeFrequencyCalculator,
 )
 from datatypes.normalized.frequency import NormalizedFrequency

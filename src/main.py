@@ -8,7 +8,7 @@ from config_writer.file import KritaSettingsWriterToFile
 from pressure_input.normalized.abstract import (
     AbstractNormalizedPressureInput,
 )
-from abstract_pressure_cumulative_frequency_calculator import (
+from cumulative_pressure_frequency.abstract import (
     AbstractPressureCumulativeFrequencyCalculator,
 )
 from pressure_input.raw.evdev import EvdevPenPressureInput
@@ -17,7 +17,7 @@ from config_writer.abstract import AbstractKritaSettingsWriter
 from datatypes.normalized.frequency import NormalizedFrequency
 from datatypes.normalized.pressure import NormalizedPressure
 from pressure_input.normalized.impl import NormalizedPressureInput
-from pressure_cumulative_frequency_calculator import (
+from cumulative_pressure_frequency.impl import (
     PressureCumulativeFrequencyCalculator,
 )
 
