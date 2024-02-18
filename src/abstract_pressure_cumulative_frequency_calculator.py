@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from datatypes.normalized.normalized_frequency import NormalizedFrequency
+from datatypes.normalized.frequency import NormalizedFrequency
 from datatypes.normalized.normalized_pressure import NormalizedPressure
 
 

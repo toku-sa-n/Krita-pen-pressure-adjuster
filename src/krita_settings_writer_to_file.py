@@ -1,5 +1,5 @@
 from abstract_krita_settings_writer import AbstractKritaSettingsWriter
-from datatypes.normalized.normalized_frequency import NormalizedFrequency
+from datatypes.normalized.frequency import NormalizedFrequency
 from datatypes.normalized.normalized_pressure import NormalizedPressure
 
 
