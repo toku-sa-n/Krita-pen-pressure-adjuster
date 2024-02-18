@@ -2,7 +2,7 @@ from typing import Callable
 
 from scipy.interpolate import make_interp_spline
 
-from abstract_bspline_generator import AbstractBSplineGenerator
+from .abstract import AbstractBSplineGenerator
 from datatypes.normalized.frequency import NormalizedFrequency
 from datatypes.normalized.pressure import NormalizedPressure
 
