@@ -1,5 +1,5 @@
 from .abstract_normalized_pressure_input import AbstractNormalizedPressureInput
-from .abstract_pen_pressure_input import AbstractRawPenPressureInput
+from .raw.abstract_pen_pressure_input import AbstractRawPenPressureInput
 from normalized import Normalized
 from normalized_pressure import NormalizedPressure
 

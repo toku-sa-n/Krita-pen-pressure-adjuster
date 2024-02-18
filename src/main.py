@@ -11,7 +11,7 @@ from pressure_input.abstract_normalized_pressure_input import (
 from abstract_pressure_cumulative_frequency_calculator import (
     AbstractPressureCumulativeFrequencyCalculator,
 )
-from pressure_input.evdev_pen_pressure_input import EvdevPenPressureInput
+from pressure_input.raw.evdev_pen_pressure_input import EvdevPenPressureInput
 from graph_plotter import GraphPlotter
 from krita_settings_writer_to_file import KritaSettingsWriterToFile
 from normalized_frequency import NormalizedFrequency
