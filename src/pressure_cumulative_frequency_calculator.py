@@ -4,7 +4,7 @@ from abstract_pressure_cumulative_frequency_calculator import (
     AbstractPressureCumulativeFrequencyCalculator,
 )
 from datatypes.normalized.frequency import NormalizedFrequency
-from datatypes.normalized.normalized_pressure import NormalizedPressure
+from datatypes.normalized.pressure import NormalizedPressure
 
 
 class PressureCumulativeFrequencyCalculator(

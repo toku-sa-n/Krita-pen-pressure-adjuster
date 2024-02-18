@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 from datatypes.normalized.frequency import NormalizedFrequency
-from datatypes.normalized.normalized_pressure import NormalizedPressure
+from datatypes.normalized.pressure import NormalizedPressure
 
 
 class AbstractGraphPlotter(ABC):

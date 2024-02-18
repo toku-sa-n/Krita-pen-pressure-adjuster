@@ -4,7 +4,7 @@ from scipy.interpolate import make_interp_spline
 
 from abstract_bspline_generator import AbstractBSplineGenerator
 from datatypes.normalized.frequency import NormalizedFrequency
-from datatypes.normalized.normalized_pressure import NormalizedPressure
+from datatypes.normalized.pressure import NormalizedPressure
 
 
 class BSplineGenerator(AbstractBSplineGenerator):

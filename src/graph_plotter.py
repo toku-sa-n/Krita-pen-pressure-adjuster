@@ -4,7 +4,7 @@ import numpy as np
 from abstract_graph_plotter import AbstractGraphPlotter
 from bspline_generator import BSplineGenerator
 from datatypes.normalized.frequency import NormalizedFrequency
-from datatypes.normalized.normalized_pressure import NormalizedPressure
+from datatypes.normalized.pressure import NormalizedPressure
 
 
 class GraphPlotter(AbstractGraphPlotter):
