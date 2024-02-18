@@ -1,7 +1,8 @@
-from .abstract import AbstractNormalizedPressureInput
-from ..raw.abstract import AbstractRawPenPressureInput
 from datatypes.normalized.base import Normalized
 from datatypes.normalized.pressure import NormalizedPressure
+
+from ..raw.abstract import AbstractRawPenPressureInput
+from .abstract import AbstractNormalizedPressureInput
 
 
 class NormalizedPressureInput(AbstractNormalizedPressureInput):

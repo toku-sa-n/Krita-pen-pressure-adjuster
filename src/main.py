@@ -3,23 +3,19 @@ import sys
 
 from scipy.interpolate import make_interp_spline
 
-from plotter.impl import GraphPlotter
+from config_writer.abstract import AbstractKritaSettingsWriter
 from config_writer.file import KritaSettingsWriterToFile
-from pressure_input.normalized.abstract import (
-    AbstractNormalizedPressureInput,
-)
 from cumulative_pressure_frequency.abstract import (
     AbstractPressureCumulativeFrequencyCalculator,
 )
-from pressure_input.raw.evdev import EvdevPenPressureInput
-from plotter.abstract import AbstractGraphPlotter
-from config_writer.abstract import AbstractKritaSettingsWriter
+from cumulative_pressure_frequency.impl import PressureCumulativeFrequencyCalculator
 from datatypes.normalized.frequency import NormalizedFrequency
 from datatypes.normalized.pressure import NormalizedPressure
+from plotter.abstract import AbstractGraphPlotter
+from plotter.impl import GraphPlotter
+from pressure_input.normalized.abstract import AbstractNormalizedPressureInput
 from pressure_input.normalized.impl import NormalizedPressureInput
-from cumulative_pressure_frequency.impl import (
-    PressureCumulativeFrequencyCalculator,
-)
+from pressure_input.raw.evdev import EvdevPenPressureInput
 
 
 def run(

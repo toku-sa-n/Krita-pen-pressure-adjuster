@@ -1,10 +1,9 @@
 import numpy as np
 
-from .abstract import (
-    AbstractPressureCumulativeFrequencyCalculator,
-)
 from datatypes.normalized.frequency import NormalizedFrequency
 from datatypes.normalized.pressure import NormalizedPressure
+
+from .abstract import AbstractPressureCumulativeFrequencyCalculator
 
 
 class PressureCumulativeFrequencyCalculator(

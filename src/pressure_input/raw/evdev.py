@@ -4,8 +4,9 @@ from typing import Any
 
 from evdev import InputDevice, ecodes
 
-from .abstract import AbstractRawPenPressureInput
 from datatypes.raw.pressure import RawPenPressure
+
+from .abstract import AbstractRawPenPressureInput
 
 
 class EvdevPenPressureInput(AbstractRawPenPressureInput):

@@ -1,10 +1,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from .abstract import AbstractGraphPlotter
 from bspline.impl import BSplineGenerator
 from datatypes.normalized.frequency import NormalizedFrequency
 from datatypes.normalized.pressure import NormalizedPressure
+
+from .abstract import AbstractGraphPlotter
 
 
 class GraphPlotter(AbstractGraphPlotter):

@@ -1,6 +1,7 @@
-from .abstract import AbstractKritaSettingsWriter
 from datatypes.normalized.frequency import NormalizedFrequency
 from datatypes.normalized.pressure import NormalizedPressure
+
+from .abstract import AbstractKritaSettingsWriter
 
 
 class KritaSettingsWriterToFile(AbstractKritaSettingsWriter):
