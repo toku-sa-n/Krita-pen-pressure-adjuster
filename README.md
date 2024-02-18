@@ -35,6 +35,14 @@ You need Python 3.11 or later to run this script. **This script only works on Li
 
 5. Two files will be generated: `graph.png` and `pen_pressure.txt`. The former contains a cumulative graph of the actual pen pressure and its frequency, and a B-Spline curve that approximates the graph. The latter contains the Krita configuration line for the pen pressure curve.     Overwrite the `tabletPressureCurve` line in the [`kritarc`](https://docs.krita.org/en/reference_manual/preferences.html) file with the line in `pen_pressure.txt`.
 
+    Here is an example of a good graph. You can see that the B-Spline curve almost overlaps the curve of the original pressure data.
+
+    ![A good graph where the B-Spline curve almost overlaps the curve of the original pressure data.](examples/good_graph.png)
+
+    And here is an example of a bad graph. You can see that the B-Spline curve is distorted and does not overlap the curve of the original pressure data. You may get a bad graph if you don't draw enough strokes. In this case, you should try again with more strokes.
+
+    ![A bad graph where the B-Spline curve is distorted and does not overlap the curve of the original pressure data.](examples/bad_graph.png)
+
 ## License
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
