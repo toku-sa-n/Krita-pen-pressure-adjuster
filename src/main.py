@@ -5,7 +5,7 @@ from scipy.interpolate import make_interp_spline
 
 from abstract_graph_plotter import AbstractGraphPlotter
 from abstract_krita_settings_writer import AbstractKritaSettingsWriter
-from pressure_input.normalized.abstract_normalized_pressure_input import (
+from pressure_input.normalized.abstract import (
     AbstractNormalizedPressureInput,
 )
 from abstract_pressure_cumulative_frequency_calculator import (
