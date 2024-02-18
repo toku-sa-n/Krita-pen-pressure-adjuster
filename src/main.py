@@ -16,7 +16,7 @@ from graph_plotter import GraphPlotter
 from krita_settings_writer_to_file import KritaSettingsWriterToFile
 from normalized_frequency import NormalizedFrequency
 from normalized_pressure import NormalizedPressure
-from pressure_input.normalized.normalized_pressure_input import NormalizedPressureInput
+from pressure_input.normalized.impl import NormalizedPressureInput
 from pressure_cumulative_frequency_calculator import (
     PressureCumulativeFrequencyCalculator,
 )
