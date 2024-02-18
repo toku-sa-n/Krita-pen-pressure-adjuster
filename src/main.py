@@ -5,16 +5,18 @@ from scipy.interpolate import make_interp_spline
 
 from abstract_graph_plotter import AbstractGraphPlotter
 from abstract_krita_settings_writer import AbstractKritaSettingsWriter
-from input.abstract_normalized_pressure_input import AbstractNormalizedPressureInput
+from pressure_input.abstract_normalized_pressure_input import (
+    AbstractNormalizedPressureInput,
+)
 from abstract_pressure_cumulative_frequency_calculator import (
     AbstractPressureCumulativeFrequencyCalculator,
 )
-from input.evdev_pen_pressure_input import EvdevPenPressureInput
+from pressure_input.evdev_pen_pressure_input import EvdevPenPressureInput
 from graph_plotter import GraphPlotter
 from krita_settings_writer_to_file import KritaSettingsWriterToFile
 from normalized_frequency import NormalizedFrequency
 from normalized_pressure import NormalizedPressure
-from input.normalized_pressure_input import NormalizedPressureInput
+from pressure_input.normalized_pressure_input import NormalizedPressureInput
 from pressure_cumulative_frequency_calculator import (
     PressureCumulativeFrequencyCalculator,
 )
