@@ -26,7 +26,7 @@ jobs:
         run: pip install -r requirements.txt
 
   mypy:
-    name: Mypy
+    name: mypy
     runs-on: ubuntu-latest
 
     steps:
