@@ -1,0 +1,31 @@
+[project]
+name = "krita-pen-pressure-adjuster"
+version = "0.1.0"
+description = "Global pen pressure setting adjuster for Krita."
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+license = { file = "LICENSE" }
+authors = [
+    { name = "toku-sa-n" },
+]
+dependencies = [
+    "evdev==1.7.0",
+    "matplotlib==3.8.3",
+    "numpy==1.26.4",
+    "scipy==1.12.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "mypy>=1.10",
+]
+
+[project.scripts]
+krita-pen-pressure-adjuster = "krita_pen_pressure_adjuster.main:main"
+
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/krita_pen_pressure_adjuster"]

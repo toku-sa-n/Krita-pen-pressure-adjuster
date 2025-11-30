@@ -1,19 +1,19 @@
 # Repository Guidelines
 
 ## Project Structure
-- `src/`: main logic. `main.py` is the CLI entry; `pressure_input/` reads evdev data; `cumulative_pressure_frequency/` builds cumulative frequency; `bspline/` does interpolation; `plotter/` draws graphs; `config_writer/` outputs `pen_pressure.txt`.
+- `src/krita_pen_pressure_adjuster/`: main logic. `main.py` is the CLI entry exposed as `krita-pen-pressure-adjuster`; `pressure_input/` reads evdev data; `cumulative_pressure_frequency/` builds cumulative frequency; `bspline/` does interpolation; `plotter/` draws graphs; `config_writer/` outputs `pen_pressure.txt`.
 - `examples/`: sample good/bad graphs.
-- `requirements.txt`: runtime deps (matplotlib, numpy, scipy, evdev).
+- `pyproject.toml` / `uv.lock`: runtime deps (matplotlib, numpy, scipy, evdev) managed by uv.
 - `mypy.ini`: `strict = True`; treat type hints as mandatory.
 
 ## Setup & Run
-- Install deps: `python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt`
+- Install deps: `uv sync` (Python 3.12 via `.python-version`; uv downloads if missing)
 - Find device: `evtest` to locate tablet `/dev/input/eventX` (root often required).
-- Run: `python src/main.py /dev/input/eventX`  
+- Run: `uv run krita-pen-pressure-adjuster /dev/input/eventX`  
   Produces `graph.png` and `pen_pressure.txt` in CWD. Stop with `Ctrl+C`.
 
 ## Build, Test, Dev
-- Type check: `mypy src` (strict). Fix missing hints instead of silencing.
+- Type check: `uv run --extra dev mypy src` (strict). Fix missing hints instead of silencing.
 - Manual verification: run the command above on real hardware; no automated tests yet, so at least eyeball `graph.png` after changes.
 
 ## Coding Style & Naming

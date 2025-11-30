@@ -1,7 +1,4 @@
-import argparse
 import sys
-
-from scipy.interpolate import make_interp_spline
 
 from krita_pen_pressure_adjuster.config_writer.abstract import (
     AbstractKritaSettingsWriter,
