@@ -26,7 +26,7 @@ You need Python 3.11 or later to run this script. **This script only works on Li
 3. Run the script. You may need the root privilege to access the input device file.
 
     ```bash
-    python src/main.py /dev/input/eventX
+    PYTHONPATH=src python -m krita_pen_pressure_adjuster.main /dev/input/eventX
     ```
 
     where `/dev/input/eventX` is the path to the tablet input device file. You can find the path by running `evtest` and looking for the device name.

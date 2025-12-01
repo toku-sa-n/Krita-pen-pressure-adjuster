@@ -3,19 +3,27 @@ import sys
 
 from scipy.interpolate import make_interp_spline
 
-from config_writer.abstract import AbstractKritaSettingsWriter
-from config_writer.file import KritaSettingsWriterToFile
-from cumulative_pressure_frequency.abstract import (
+from krita_pen_pressure_adjuster.config_writer.abstract import (
+    AbstractKritaSettingsWriter,
+)
+from krita_pen_pressure_adjuster.config_writer.file import KritaSettingsWriterToFile
+from krita_pen_pressure_adjuster.cumulative_pressure_frequency.abstract import (
     AbstractPressureCumulativeFrequencyCalculator,
 )
-from cumulative_pressure_frequency.impl import PressureCumulativeFrequencyCalculator
-from datatypes.normalized.frequency import NormalizedFrequency
-from datatypes.normalized.pressure import NormalizedPressure
-from plotter.abstract import AbstractGraphPlotter
-from plotter.impl import GraphPlotter
-from pressure_input.normalized.abstract import AbstractNormalizedPressureInput
-from pressure_input.normalized.impl import NormalizedPressureInput
-from pressure_input.raw.evdev import EvdevPenPressureInput
+from krita_pen_pressure_adjuster.cumulative_pressure_frequency.impl import (
+    PressureCumulativeFrequencyCalculator,
+)
+from krita_pen_pressure_adjuster.datatypes.normalized.frequency import NormalizedFrequency
+from krita_pen_pressure_adjuster.datatypes.normalized.pressure import NormalizedPressure
+from krita_pen_pressure_adjuster.plotter.abstract import AbstractGraphPlotter
+from krita_pen_pressure_adjuster.plotter.impl import GraphPlotter
+from krita_pen_pressure_adjuster.pressure_input.normalized.abstract import (
+    AbstractNormalizedPressureInput,
+)
+from krita_pen_pressure_adjuster.pressure_input.normalized.impl import (
+    NormalizedPressureInput,
+)
+from krita_pen_pressure_adjuster.pressure_input.raw.evdev import EvdevPenPressureInput
 
 
 def run(

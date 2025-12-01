@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from datatypes.normalized.pressure import NormalizedPressure
+from krita_pen_pressure_adjuster.datatypes.normalized.pressure import NormalizedPressure
 
 
 class AbstractNormalizedPressureInput(ABC):

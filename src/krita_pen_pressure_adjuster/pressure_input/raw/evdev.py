@@ -4,7 +4,7 @@ from typing import Any
 
 from evdev import InputDevice, ecodes
 
-from datatypes.raw.pressure import RawPenPressure
+from krita_pen_pressure_adjuster.datatypes.raw.pressure import RawPenPressure
 
 from .abstract import AbstractRawPenPressureInput
 
