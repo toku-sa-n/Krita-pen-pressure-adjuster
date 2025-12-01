@@ -1,5 +1,5 @@
-from datatypes.normalized.base import Normalized
-from datatypes.normalized.pressure import NormalizedPressure
+from krita_pen_pressure_adjuster.datatypes.normalized.base import Normalized
+from krita_pen_pressure_adjuster.datatypes.normalized.pressure import NormalizedPressure
 
 from ..raw.abstract import AbstractRawPenPressureInput
 from .abstract import AbstractNormalizedPressureInput

@@ -1,7 +1,7 @@
 import numpy as np
 
-from datatypes.normalized.frequency import NormalizedFrequency
-from datatypes.normalized.pressure import NormalizedPressure
+from krita_pen_pressure_adjuster.datatypes.normalized.frequency import NormalizedFrequency
+from krita_pen_pressure_adjuster.datatypes.normalized.pressure import NormalizedPressure
 
 from .abstract import AbstractPressureCumulativeFrequencyCalculator
 
