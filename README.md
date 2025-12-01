@@ -9,7 +9,7 @@ This is a Python script that helps you adjust the pen pressure setting for Krita
 - **Linux only.**
 - [uv](https://github.com/astral-sh/uv) for dependency management and virtualenvs. If you don't have it:  
   `curl -LsSf https://astral.sh/uv/install.sh | sh`
-- Python 3.12 (pinned via `.python-version`). uv will download it automatically if it's missing.
+- Python 3.11–3.12 をサポート（`requires-python = ">=3.11,<3.13"`）。デフォは `.python-version` の 3.12 を使うけど、3.11 が欲しければ `uv sync --python 3.11` でOK。uvが足りないバージョンを自動DLしてくれるよ。
 
 ## Usage
 
