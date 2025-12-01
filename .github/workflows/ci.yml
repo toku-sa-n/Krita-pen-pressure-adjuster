@@ -17,13 +17,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.2
 
-      - name: Setup Python
-        uses: actions/setup-python@v5.0.0
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v1
         with:
-          python-version: "3.11"
+          python-version: "3.12"
+          enable-cache: true
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: uv sync --extra dev
+
+      - name: Bytecode build check
+        run: uv run python -m compileall src
 
   mypy:
     name: mypy
@@ -33,5 +37,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.2
 
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v1
+        with:
+          python-version: "3.12"
+          enable-cache: true
+
+      - name: Install dependencies
+        run: uv sync --extra dev
+
       - name: Run mypy
-        uses: tsuyoshicho/action-mypy@v4.0.0
+        run: uv run mypy src

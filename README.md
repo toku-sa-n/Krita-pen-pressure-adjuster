@@ -6,7 +6,9 @@ This is a Python script that helps you adjust the pen pressure setting for Krita
 
 ## Prerequisites
 
-You need Python 3.11 or later to run this script. **This script only works on Linux.**
+- **Linux only.**
+- [uv](https://github.com/astral-sh/uv) for dependency management and virtualenvs. If you don't have it:  
+  `curl -LsSf https://astral.sh/uv/install.sh | sh`
 
 ## Usage
 
@@ -17,16 +19,16 @@ You need Python 3.11 or later to run this script. **This script only works on Li
     cd Krita-pen-pressure-adjuster
     ```
 
-2. Install the required packages.
+2. Install dependencies with uv (creates `.venv` automatically).
 
     ```bash
-    pip install -r requirements.txt
+    uv sync
     ```
 
-3. Run the script. You may need the root privilege to access the input device file.
+3. Run the CLI. You may need the root privilege to access the input device file.
 
     ```bash
-    PYTHONPATH=src python -m krita_pen_pressure_adjuster.main /dev/input/eventX
+    uv run krita-pen-pressure-adjuster /dev/input/eventX
     ```
 
     where `/dev/input/eventX` is the path to the tablet input device file. You can find the path by running `evtest` and looking for the device name.
@@ -42,6 +44,10 @@ You need Python 3.11 or later to run this script. **This script only works on Li
     And here is an example of a bad graph. You can see that the B-Spline curve is distorted and does not overlap the curve of the original pressure data. You may get a bad graph if you don't draw enough strokes. In this case, you should try again with more strokes.
 
     ![A bad graph where the B-Spline curve is distorted and does not overlap the curve of the original pressure data.](examples/bad_graph.png)
+
+## Development
+
+- Type check: `uv run --extra dev mypy src`
 
 ## License
 
