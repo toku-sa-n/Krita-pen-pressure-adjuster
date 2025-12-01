@@ -7,7 +7,7 @@
 - `mypy.ini`: `strict = True`; treat type hints as mandatory.
 
 ## Setup & Run
-- Install deps: `uv sync` (Python 3.12 via `.python-version`; uv downloads if missing)
+- Install deps: `uv sync` (Python 3.12 is the default via `.python-version`; `uv sync --python 3.11` works too and both are supported)
 - Find device: `evtest` to locate tablet `/dev/input/eventX` (root often required).
 - Run: `uv run krita-pen-pressure-adjuster /dev/input/eventX`  
   Produces `graph.png` and `pen_pressure.txt` in CWD. Stop with `Ctrl+C`.
