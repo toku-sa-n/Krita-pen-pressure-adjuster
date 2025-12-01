@@ -30,6 +30,10 @@
 - Commits and PR titles must follow Conventional Commits: `type(scope?): subject` (e.g., `feat(input): add pressure normalization test`, `fix(plotter): clamp x-range`). Keep subject ≤72 chars, present tense, no period.
 - PR body should include: summary + motivation, repro/verification steps (commands run), linked issues, and screenshots of `graph.png` when visuals change.
 
+## Language
+- All repository content (code, comments, docstrings, docs, PR descriptions, commit messages) must be written in English.
+- Chat responses should follow the current agent instructions for conversation style.
+
 ## Security & Device Notes
 - evdev access may need root; use `sudo` carefully and avoid disturbing other input devices.
 - `pen_pressure.txt` replaces `kritarc`’s `tabletPressureCurve`; back up `kritarc` before overwriting.
